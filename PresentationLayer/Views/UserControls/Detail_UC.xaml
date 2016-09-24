@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="PresentationLayer.Views.UserControls.Detail_UC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresentationLayer.Views.UserControls"
+             xmlns:local_support="clr-namespace:PresentationLayer.Support"
+             mc:Ignorable="d" 
+             Background="White"
+             >
+    <UserControl.Resources>
+        <local_support:DatetimeToTextConverter x:Key="datetimeToTextConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" MinWidth="70"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="auto" MinWidth="70"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="OPEN BY" FontWeight="Bold"/>
+        <TextBlock Grid.Column="2" Grid.Row="0" Text="OPEN AT" FontWeight="Bold" Margin="5,0,0,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="CUSTOMER" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="70"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="STATUS" FontWeight="Bold" />
+        <TextBlock Grid.Column="2" Grid.Row="2" Text="PRIORITY" FontWeight="Bold" Margin="5,0,0,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="CLOSED BY" FontWeight="Bold"/>
+        <TextBlock Grid.Column="2" Grid.Row="3" Text="CLOSED AT" FontWeight="Bold" Margin="5,0,0,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="ISSUE" FontWeight="Bold"/>
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="SOLUTION" FontWeight="Bold"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Model.OpenByAgent.FullName}"/>
+        <TextBlock Grid.Column="3" Grid.Row="0" Text="{Binding Model.OpenDate, Converter={StaticResource datetimeToTextConverter}}"/>
+        <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="9*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="CREATE" Padding="5,0" Command="{Binding CmdCustomerCreate}" FontSize="8" Margin="5,0"/>
+                <Button Content="UPDATE" Padding="5,0" Command="{Binding CmdCustomerUpdate}" FontSize="8"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="ID"/>
+                <TextBox Text="{Binding CustomerId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="50" Padding="5,0" Margin="3,0"/>
+                <Button Content="FIND" Padding="5,0" Command="{Binding CmdCustomerFind}"/>
+                <TextBlock MinWidth="100" Padding="5,0">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} ({1})">
+                            <Binding Path="Model.Caller.FullName"/>
+                            <Binding Path="Model.Caller.Phone"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+        <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Statuses}"
+                  SelectedItem="{Binding SelectedStatus}"/>
+        <ComboBox Grid.Column="3" Grid.Row="2" ItemsSource="{Binding Priorities}"
+                  SelectedItem="{Binding SelectedPriority}"/>
+        <ComboBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding Staff}"
+                  SelectedItem="{Binding SelectedEmployee}"
+                  SelectedIndex="{Binding SelectedEmployeeIndex}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding FullName}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Grid.Column="3" Grid.Row="3" Text="{Binding Model.CloseDate, Converter={StaticResource datetimeToTextConverter}}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" MinHeight="50" Text="{Binding Issue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" SpellCheck.IsEnabled="True" HorizontalContentAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
+        <TextBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" MinHeight="50" Text="{Binding Solution, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" SpellCheck.IsEnabled="True" HorizontalContentAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
+    </Grid>
+</UserControl>
