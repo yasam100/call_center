@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,18 +57,56 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\ContentLayerDummy\ContentDummy.cs" />
+    <Compile Include="Models\ContentLayerDummy\IContentProvider.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\ServiceCall.cs" />
+    <Compile Include="Models\ServiceIssue.cs" />
+    <Compile Include="Support\BoolToVisibilityWithParameterConverter.cs" />
+    <Compile Include="Support\DatetimeToTextConverter.cs" />
+    <Compile Include="Support\IDirty.cs" />
+    <Compile Include="Support\NotifyUIBase.cs" />
+    <Compile Include="Support\QiudVMBase.cs" />
+    <Compile Include="Support\RelayCommand.cs" />
+    <Compile Include="ViewModels\DetailVM.cs" />
+    <Compile Include="ViewModels\LoginVM.cs" />
+    <Compile Include="ViewModels\MainVM.cs" />
+    <Compile Include="ViewModels\ServiceCallsVM.cs" />
+    <Compile Include="ViewModels\ServiceCallVM.cs" />
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\Detail_UC.xaml.cs">
+      <DependentUpon>Detail_UC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\Login_UC.xaml.cs">
+      <DependentUpon>Login_UC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\Master_UC.xaml.cs">
+      <DependentUpon>Master_UC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\Detail_UC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\Login_UC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\Master_UC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -95,6 +135,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

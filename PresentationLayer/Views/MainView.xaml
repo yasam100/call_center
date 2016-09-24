@@ -1,0 +1,52 @@
+﻿<Window x:Class="PresentationLayer.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationLayer.Views"
+        xmlns:local_uc="clr-namespace:PresentationLayer.Views.UserControls"
+        mc:Ignorable="d"
+        Title="MainView" Height="300" Width="auto">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+            <TextBlock  >
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="Hello, {0}">
+                        <Binding Path="LoggedAgentModel.FullName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" FallbackValue="guest"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+
+            <Button Content="LOG OUT" Command="{Binding CmdLogout}" Margin="5,0,0,0" Padding="5,0"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="0,5" HorizontalAlignment="Left" Orientation="Horizontal">
+            <Button Margin="0,0,5,0" Padding="5,0" Command="{Binding CmdToggleOrder}" Content="A-Z" />
+            <Button Margin="0,0,5,0" Padding="5,0" Command="{Binding CmdFilter}" CommandParameter="OPENED" Content="OPENED BY ME"/>
+            <Button Margin="0,0,5,0" Padding="5,0" Command="{Binding CmdFilter}" CommandParameter="CLOSED" Content="CLOSED BY ME"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,5" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Margin="5,0,0,0" Padding="5,0" Command="{Binding CmdServiceCallCreate}" Content="CREATE"/>
+            <Button Margin="5,0,0,0" Padding="5,0" Command="{Binding CmdServiceCallUpdate}" Content="UPDATE"/>
+            <Button Margin="5,0,0,0" Padding="5,0" Command="{Binding CmdServiceCallDelete}" Content="DELETE"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="2" Margin="0,0,3,0">
+            <local_uc:Master_UC DataContext="{Binding MasterViewModel}"/>
+        </ScrollViewer>
+        
+        <local_uc:Detail_UC Grid.Row="2" DataContext="{Binding DetailViewModel}" Grid.Column="1" Margin="3,0,0,0"/>
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding StatusBarMessage}" Margin="5"/>
+        <local_uc:Login_UC Grid.ColumnSpan="2" Grid.RowSpan="4" DataContext="{Binding LoginViewModel}"/>
+    </Grid>
+</Window>

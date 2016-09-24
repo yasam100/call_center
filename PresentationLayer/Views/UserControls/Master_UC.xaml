@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="PresentationLayer.Views.UserControls.Master_UC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresentationLayer.Views.UserControls"
+             xmlns:local_support="clr-namespace:PresentationLayer.Support"
+             mc:Ignorable="d" 
+             d:DesignHeight="300">
+    <UserControl.Resources>
+        <local_support:DatetimeToTextConverter x:Key="datetimeToTextConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid AutoGenerateColumns="False"
+                  ItemsSource="{Binding DataCollection}"
+                  HeadersVisibility="Column"
+                  SelectedItem="{Binding Selected, Mode=TwoWay}"
+                  SelectionMode="Single"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  SelectedIndex="{Binding SelectedItemIndex}"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding CustomerFullName, Mode=OneWay}"  Header="Name" />
+                <DataGridTextColumn Binding="{Binding CustomerPhone, Mode=OneWay}"  Header="Phone" />
+                <DataGridTextColumn Binding="{Binding Model.OpenDate, Mode=OneWay, Converter={StaticResource datetimeToTextConverter}}" Header="Open Date" />
+                <DataGridTextColumn Binding="{Binding OpenByFullName, Mode=OneWay}"  Header="Open By" />
+                <DataGridTextColumn Binding="{Binding Status, Mode=OneWay}"  Header="Status" />
+                <DataGridTextColumn Binding="{Binding Priority, Mode=OneWay}"  Header="Priority" />
+                <DataGridTextColumn Binding="{Binding Model.Issue, Mode=OneWay}"  Header="Issue" MaxWidth="100" />
+                <DataGridTextColumn Binding="{Binding Model.Solution, Mode=OneWay}"  Header="Solution" MaxWidth="100" />
+                <DataGridTextColumn Binding="{Binding Model.CloseDate, Mode=OneWay, Converter={StaticResource datetimeToTextConverter}}" Header="Close Date" />
+                <DataGridTextColumn Binding="{Binding CloseByFullName, Mode=OneWay}"  Header="Close By" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--<support:Throbber x:Name="Throbber" Visibility="{Binding ThrobberVisible}"/>-->
+        <TextBlock Text="{Binding ErrorMessage}"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top" />
+    </Grid>
+</UserControl>
