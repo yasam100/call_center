@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PresentationLayer.Views"
         xmlns:local_uc="clr-namespace:PresentationLayer.Views.UserControls"
         mc:Ignorable="d"
-        Title="MainView" Height="300" Width="auto">
+        Title="Service Call Center" Height="300" Width="auto" WindowStartupLocation="CenterOwner" WindowState="Maximized">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
